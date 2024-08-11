@@ -31,7 +31,7 @@ else
     protected override async Task OnInitializedAsync()
     {
  
-        users = await HttpClient.GetFromJsonAsync<ApplicationUser[]>("http://localhost:7100/api/GetUsers").ConfigureAwait(false);
+        users = await HttpClient.GetFromJsonAsync<ApplicationUser[]>("https://userprovider.azurewebsites.net/api/GetUsers?code=Hw1IIoYEx4BoU97J73dGQsUIsof2qduidORAk3mpa_jMAzFuWlcb3g%3D%3D");
         
     }
 
