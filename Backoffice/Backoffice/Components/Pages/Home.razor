@@ -1,0 +1,46 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Welcome to Silicon!</h1>
+
+
+<div class="container">
+    <div id="status">
+    </div>
+
+    <form enctype="multipart/form-data" onsubmit="handleSubmit(event)">
+        <input type="file" name="file" accept="image/*" class="form-control mb-3" />
+        <button type="submit" class="btn btn-secondary w-100">
+            UPLOAD
+        </button>
+    </form>
+
+    <script type="text/javascript">
+
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+
+            const status = document.getElementById("status");
+            status.innerHTML = "";
+
+            const formData = new FormData();
+            var f = e.target['file'].files[0];
+            var efil = e.target['file'].fi;
+            formData.append("file'", e.target['file'].files[0]);
+
+            const res = await fetch('https://fileprovider.azurewebsites.net/api/Upload?code=mBMWtuKO4wEq_0T3RGXRgzbx-xGf6f3GdN2P_T9-36p5AzFu4PpAJg%3D%3D&containerName=uploads', {
+                method: 'post',
+                body: formData
+            })
+
+            if (res.status === 200) {
+                const result = await res.json();
+                status.innerHTML = `<div class="alert alert-success my-4"<strong>File Uploaded</strong> ${result.filePath} </div>`
+            } else {
+                status.innerHTML = `<div class="alert alert-danger my-4"<strong>Something went wrong</strong>No file was uploaded</div>`
+            }
+        }
+    </script>
+ 
+</div>
